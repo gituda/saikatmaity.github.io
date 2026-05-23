@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Saikat Maity | Cyber Security Portfolio</title>
+<meta name="description" content="Saikat Maity — Cyber Security Professional specializing in VAPT, WAPT, Ethical Hacking & Digital Forensics." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root{
+    --bg:#0a0e14;
+    --bg-2:#0f141b;
+    --card:#11161d;
+    --accent:#00ff9c;
+    --accent-2:#00d4ff;
+    --text:#c9d1d9;
+    --muted:#8b949e;
+    --border:#1f2731;
+    --danger:#ff3860;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Fira Code',monospace;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  /* Matrix-ish animated background */
+  .bg-grid{
+    position:fixed;inset:0;z-index:-1;
+    background-image:
+      linear-gradient(rgba(0,255,156,0.03) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(0,255,156,0.03) 1px,transparent 1px);
+    background-size:40px 40px;
+    animation:gridMove 20s linear infinite;
+  }
+  @keyframes gridMove{from{background-position:0 0}to{background-position:40px 40px}}
+
+  /* Navbar */
+  nav{
+    position:fixed;top:0;left:0;right:0;
+    background:rgba(10,14,20,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+    z-index:100;padding:1rem 2rem;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  nav .logo{color:var(--accent);font-weight:700;font-size:1.1rem}
+  nav .logo span{color:var(--text)}
+  nav ul{display:flex;gap:1.8rem;list-style:none}
+  nav a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:.3s}
+  nav a:hover{color:var(--accent)}
+  .menu-toggle{display:none;background:none;border:none;color:var(--accent);font-size:1.5rem;cursor:pointer}
+
+  section{padding:6rem 2rem 4rem;max-width:1100px;margin:0 auto}
+
+  /* Hero */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+  .terminal{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:8px;padding:1.5rem;margin-bottom:2rem;
+    box-shadow:0 0 30px rgba(0,255,156,0.08);
+  }
+  .terminal-header{display:flex;gap:.5rem;margin-bottom:1rem;align-items:center}
+  .dot{width:12px;height:12px;border-radius:50%}
+  .dot.red{background:#ff5f56}.dot.yellow{background:#ffbd2e}.dot.green{background:#27c93f}
+  .terminal-title{margin-left:1rem;color:var(--muted);font-size:.85rem}
+  .prompt{color:var(--accent)}
+  .typed{color:var(--accent-2)}
+  .cursor{display:inline-block;width:8px;height:1rem;background:var(--accent);animation:blink 1s infinite;vertical-align:middle}
+  @keyframes blink{50%{opacity:0}}
+
+  .hero h1{
+    font-family:'Share Tech Mono',monospace;
+    font-size:clamp(2.2rem,6vw,4rem);
+    color:var(--accent);
+    margin:1rem 0 .5rem;
+    text-shadow:0 0 20px rgba(0,255,156,0.3);
+  }
+  .hero .role{color:var(--accent-2);font-size:1.2rem;margin-bottom:1.5rem}
+  .hero p{color:var(--muted);max-width:700px;margin-bottom:2rem}
+  .btn-group{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn{
+    padding:.8rem 1.5rem;background:transparent;border:1px solid var(--accent);
+    color:var(--accent);text-decoration:none;border-radius:4px;
+    font-family:inherit;transition:.3s;display:inline-flex;align-items:center;gap:.5rem;
+  }
+  .btn:hover{background:var(--accent);color:var(--bg);box-shadow:0 0 20px rgba(0,255,156,0.4)}
+  .btn.secondary{border-color:var(--accent-2);color:var(--accent-2)}
+  .btn.secondary:hover{background:var(--accent-2);color:var(--bg)}
+
+  /* Section titles */
+  .section-title{
+    font-family:'Share Tech Mono',monospace;
+    color:var(--accent);font-size:1.8rem;margin-bottom:2rem;
+    display:flex;align-items:center;gap:.8rem;
+  }
+  .section-title::before{content:"//";color:var(--muted)}
+  .section-title::after{content:"";flex:1;height:1px;background:var(--border);margin-left:1rem}
+
+  /* About */
+  .about p{color:var(--muted);margin-bottom:1rem}
+  .about strong{color:var(--accent)}
+
+  /* Skills */
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem}
+  .skill-card{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:6px;padding:1.3rem;transition:.3s;
+  }
+  .skill-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 5px 20px rgba(0,255,156,0.1)}
+  .skill-card h3{color:var(--accent-2);margin-bottom:.8rem;font-size:1rem;display:flex;align-items:center;gap:.5rem}
+  .skill-card .tags{display:flex;flex-wrap:wrap;gap:.4rem}
+  .tag{
+    background:var(--bg-2);border:1px solid var(--border);
+    padding:.25rem .7rem;border-radius:3px;font-size:.8rem;color:var(--text);
+  }
+
+  /* Certifications */
+  .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem}
+  .cert-card{
+    background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);
+    padding:1rem 1.2rem;border-radius:4px;transition:.3s;
+  }
+  .cert-card:hover{border-left-color:var(--accent-2);transform:translateX(5px)}
+  .cert-card h4{color:var(--text);font-size:.95rem;margin-bottom:.3rem}
+  .cert-card .meta{color:var(--muted);font-size:.8rem}
+  .cert-card .year{color:var(--accent);float:right}
+
+  /* Experience timeline */
+  .timeline{position:relative;padding-left:2rem}
+  .timeline::before{content:"";position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--border)}
+  .exp-item{position:relative;margin-bottom:2rem;padding-left:1.5rem}
+  .exp-item::before{
+    content:"";position:absolute;left:-1.65rem;top:.4rem;
+    width:14px;height:14px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 10px var(--accent);
+  }
+  .exp-item h3{color:var(--accent-2);margin-bottom:.2rem}
+  .exp-item .date{color:var(--muted);font-size:.85rem;margin-bottom:.6rem}
+  .exp-item ul{margin-left:1.2rem;color:var(--muted)}
+
+  /* Projects */
+  .project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.2rem}
+  .project-card{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:6px;padding:1.5rem;transition:.3s;position:relative;overflow:hidden;
+  }
+  .project-card::before{
+    content:"";position:absolute;top:0;left:0;width:100%;height:2px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    transform:scaleX(0);transform-origin:left;transition:.4s;
+  }
+  .project-card:hover::before{transform:scaleX(1)}
+  .project-card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,0,0,0.4)}
+  .project-card h3{color:var(--accent);margin-bottom:.6rem}
+  .project-card .stack{color:var(--accent-2);font-size:.85rem;margin-bottom:.8rem}
+  .project-card p{color:var(--muted);font-size:.9rem;margin-bottom:1rem}
+  .project-card a{color:var(--accent);text-decoration:none;font-size:.85rem}
+  .project-card a:hover{text-decoration:underline}
+
+  /* Contact */
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-top:1rem}
+  .contact-card{
+    background:var(--card);border:1px solid var(--border);
+    padding:1.2rem;border-radius:6px;text-align:center;transition:.3s;
+    text-decoration:none;color:var(--text);
+  }
+  .contact-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+  .contact-card i{color:var(--accent);font-size:1.8rem;margin-bottom:.6rem}
+  .contact-card h4{margin-bottom:.3rem;font-size:.9rem}
+  .contact-card p{color:var(--muted);font-size:.8rem;word-break:break-all}
+
+  footer{
+    text-align:center;padding:2rem;border-top:1px solid var(--border);
+    color:var(--muted);font-size:.85rem;margin-top:3rem;
+  }
+  footer .accent{color:var(--accent)}
+
+  /* Mobile */
+  @media(max-width:768px){
+    nav ul{
+      display:none;position:absolute;top:60px;left:0;right:0;
+      background:var(--bg-2);flex-direction:column;padding:1rem;
+      border-bottom:1px solid var(--border);
+    }
+    nav ul.open{display:flex}
+    .menu-toggle{display:block}
+    section{padding:5rem 1.2rem 3rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">&lt;Saikat<span>Maity</span>/&gt;</div>
+  <button class="menu-toggle" onclick="document.getElementById('navMenu').classList.toggle('open')">
+    <i class="fas fa-bars"></i>
+  </button>
+  <ul id="navMenu">
+    <li><a href="#home">~/home</a></li>
+    <li><a href="#about">~/about</a></li>
+    <li><a href="#skills">~/skills</a></li>
+    <li><a href="#certs">~/certs</a></li>
+    <li><a href="#experience">~/experience</a></li>
+    <li><a href="#projects">~/projects</a></li>
+    <li><a href="#contact">~/contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="terminal">
+    <div class="terminal-header">
+      <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+      <span class="terminal-title">saikat@kali: ~</span>
+    </div>
+    <div><span class="prompt">root@saikat</span>:<span style="color:var(--accent-2)">~</span>$ whoami</div>
+    <div class="typed" id="typed"></div><span class="cursor"></span>
+  </div>
+
+  <h1>Saikat Maity</h1>
+  <div class="role">> Cyber Security Professional | Penetration Tester | VAPT &amp; WAPT Specialist</div>
+  <p>
+    Securing systems through ethical hacking, vulnerability assessment, and digital forensics.
+    Currently expanding expertise in offensive security, advanced forensics, and AI-driven security research.
+  </p>
+  <div class="btn-group">
+    <a href="#projects" class="btn"><i class="fas fa-code"></i> View Projects</a>
+    <a href="#contact" class="btn secondary"><i class="fas fa-envelope"></i> Get In Touch</a>
+    <a href="https://github.com/" target="_blank" class="btn secondary"><i class="fab fa-github"></i> GitHub</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+  <h2 class="section-title">About Me</h2>
+  <p>
+    I'm a passionate <strong>Cyber Security professional</strong> holding a B.Tech in CSE — Cyber Security
+    (CGPA <strong>8.94</strong>) from The Neotia University.
+  </p>
+  <p>
+    With hands-on experience in <strong>Vulnerability Assessment &amp; Penetration Testing (VAPT)</strong> and
+    <strong>Web Application Penetration Testing (WAPT)</strong> at RootNik Labs, I specialize in identifying,
+    exploiting, and remediating security weaknesses across networks and web applications.
+  </p>
+  <p>
+    My focus areas include ethical hacking, digital forensics, network security auditing, and AI-driven
+    security research. I'm currently preparing for <strong>CompTIA Security+ (SY0-701)</strong> and exploring
+    advanced offensive techniques.
+  </p>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <h2 class="section-title">Skills &amp; Arsenal</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3><i class="fas fa-code"></i> Languages</h3>
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">Bash</span><span class="tag">C</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3><i class="fab fa-linux"></i> OS / Platforms</h3>
+      <div class="tags">
+        <span class="tag">Kali Linux</span><span class="tag">Ubuntu</span><span class="tag">Debian</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3><i class="fas fa-network-wired"></i> Network Security</h3>
+      <div class="tags">
+        <span class="tag">Nmap</span><span class="tag">Nessus</span><span class="tag">Metasploit</span><span class="tag">Wireshark</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3><i class="fas fa-globe"></i> Web App Security</h3>
+      <div class="tags">
+        <span class="tag">Burp Suite</span><span class="tag">OWASP ZAP</span><span class="tag">Acunetix</span><span class="tag">Netsparker</span><span class="tag">AppScan</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3><i class="fas fa-search"></i> Digital Forensics</h3>
+      <div class="tags">
+        <span class="tag">Autopsy</span><span class="tag">FTK</span><span class="tag">Steganography</span><span class="tag">Exif Reader</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3><i class="fas fa-shield-alt"></i> Other Skills</h3>
+      <div class="tags">
+        <span class="tag">Cryptography</span><span class="tag">Phishing Analysis</span><span class="tag">Anti-Forensics</span><span class="tag">OSINT</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <h2 class="section-title">Certifications</h2>
+  <div class="cert-grid">
+    <div class="cert-card"><span class="year">2024</span><h4>🛡️ RootNik Certified Penetration Tester</h4><div class="meta">RootNik Labs Cyber Security</div></div>
+    <div class="cert-card"><span class="year">2024</span><h4>🌐 Web App Penetration Testing (WAPT)</h4><div class="meta">RootNik Labs</div></div>
+    <div class="cert-card"><span class="year">2025</span><h4>🔍 Advanced Digital Forensics</h4><div class="meta">Hackers-Arise</div></div>
+    <div class="cert-card"><span class="year">2025</span><h4>🕵️ Anti-Forensics</h4><div class="meta">Hackers-Arise</div></div>
+    <div class="cert-card"><span class="year">2025</span><h4>⚔️ Web App Hacking</h4><div class="meta">Hackers-Arise</div></div>
+    <div class="cert-card"><span class="year">2025</span><h4>📜 Security+ SY0-701 Bootcamp</h4><div class="meta">Hackers-Arise</div></div>
+    <div class="cert-card"><span class="year">2022</span><h4>⚡ Ethical Hacking</h4><div class="meta">TuteDude — IIT-Delhi Alumni Initiative</div></div>
+    <div class="cert-card"><span class="year">2021</span><h4>🐍 Python Programming</h4><div class="meta">Coursera — University of Michigan</div></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <h2 class="section-title">Experience</h2>
+  <div class="timeline">
+    <div class="exp-item">
+      <h3>Cyber Security Intern — RootNik Labs Cyber Security Pvt. Ltd</h3>
+      <div class="date">Aug 2024 – Sep 2025</div>
+      <ul>
+        <li>Performed end-to-end <strong>VAPT</strong> on enterprise networks &amp; web applications.</li>
+        <li>Conducted Web Application Penetration Tests targeting <strong>OWASP Top 10</strong>.</li>
+        <li>Documented vulnerabilities with detailed remediation guidance.</li>
+      </ul>
+    </div>
+    <div class="exp-item">
+      <h3>Cyber Security Intern — Virtually Testing Foundation</h3>
+      <div class="date">May 2022</div>
+      <ul><li>Hands-on training in penetration testing methodologies &amp; security tools.</li></ul>
+    </div>
+    <div class="exp-item">
+      <h3>Industrial Trainee — AILABS</h3>
+      <div class="date">July 2021</div>
+      <ul><li>Completed Advanced Machine Learning industrial training program.</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <h2 class="section-title">Featured Projects</h2>
+  <div class="project-grid">
+
+    <div class="project-card">
+      <h3>🛡️ Secure Hybrid Campus Area Network</h3>
+      <div class="stack">Cisco Packet Tracer • Network Security</div>
+      <p>Designed and implemented a secure hybrid campus network with segmented VLANs, ACLs, and firewall policies to protect institutional infrastructure.</p>
+      <a href="https://docs.google.com/document/d/1-jqks2w8LO0ZdE34S51GDdEY31x-bCAH/edit" target="_blank">
+        <i class="fas fa-external-link-alt"></i> View Documentation
+      </a>
+    </div>
+
+    <div class="project-card">
+      <h3>🤖 Dynamic Chatbot — Capstone</h3>
+      <div class="stack">Dialogflow • JavaScript • Node.js</div>
+      <p>Built an intelligent conversational chatbot with dynamic intent handling and contextual responses at AILABS.</p>
+      <a href="https://drive.google.com/file/d/16VObL1NLBL7dWyL3HZR9TpBHLY_l-5nr/view" target="_blank">
+        <i class="fas fa-external-link-alt"></i> View Project
+      </a>
+    </div>
+
+    <div class="project-card">
+      <h3>🎥 Video Shot Boundary Detection</h3>
+      <div class="stack">Python • Google Colab • Computer Vision</div>
+      <p>Developed a computer-vision model to detect scene transitions in real-time video streams using frame analysis.</p>
+      <a href="https://docs.google.com/document/d/16Tnw_XWMMmHXzZN3oCWip5he9ivztfHO/edit" target="_blank">
+        <i class="fas fa-external-link-alt"></i> View Documentation
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2 class="section-title">Contact Me</h2>
+  <p style="color:var(--muted);margin-bottom:1rem">
+    Open to opportunities in Penetration Testing, VAPT, SOC, and Security Research roles.
+  </p>
+  <div class="contact-grid">
+    <a class="contact-card" href="mailto:saikat.maity.math@gmail.com">
+      <i class="fas fa-envelope"></i><h4>Email</h4><p>saikat.maity.math@gmail.com</p>
+    </a>
+    <a class="contact-card" href="tel:+919679711793">
+      <i class="fas fa-phone"></i><h4>Phone</h4><p>+91 96797 11793</p>
+    </a>
+    <a class="contact-card" href="https://www.linkedin.com/in/saikat-maity-785624213/" target="_blank">
+      <i class="fab fa-linkedin"></i><h4>LinkedIn</h4><p>saikat-maity</p>
+    </a>
+    <a class="contact-card" href="https://github.com/" target="_blank" id="githubLink">
+      <i class="fab fa-github"></i><h4>GitHub</h4><p>Update with your username</p>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span class="accent">Saikat Maity</span> • Built with 🔐 and ☕</p>
+  <p style="margin-top:.5rem">"The quieter you become, the more you can hear." — Kali Linux</p>
+</footer>
+
+<script>
+  // Typing animation
+  const phrases = [
+    "Cyber Security Professional",
+    "Penetration Tester",
+    "VAPT & WAPT Specialist",
+    "Digital Forensics Analyst",
+    "Ethical Hacker"
+  ];
+  let pi=0, ci=0, deleting=false;
+  const el = document.getElementById('typed');
+  function type(){
+    const word = phrases[pi];
+    if(!deleting){
+      el.textContent = word.slice(0,++ci);
+      if(ci === word.length){ deleting = true; setTimeout(type,1500); return; }
+    } else {
+      el.textContent = word.slice(0,--ci);
+      if(ci === 0){ deleting = false; pi = (pi+1) % phrases.length; }
+    }
+    setTimeout(type, deleting ? 50 : 90);
+  }
+  type();
+
+  // Smooth nav close on click (mobile)
+  document.querySelectorAll('#navMenu a').forEach(a =>
+    a.addEventListener('click', () => document.getElementById('navMenu').classList.remove('open'))
+  );
+</script>
+
+</body>
+</html>
